@@ -1,0 +1,35 @@
+ int findCheapestPrice(int n, vector<vector<int>>& fli, int src, int dst, int k) {
+        int c = fli.size();
+        vector<pair<int,int>> adj[n+1];
+        for(int i=0;i<c;i++)
+        {
+            adj[fli[i][0]].push_back({fli[i][1],fli[i][2]});
+        }
+        queue<pair<int,pair<int,int>>> q;
+        q.push({0,{src,0}});
+        vector<int> dis(n,INT_MAX);
+        dis[src] = 0;
+        while(!q.empty())
+        {
+            auto it = q.front();
+            q.pop();
+            int stops = it.first;
+            int cost = it.second.second;
+            int node = it.second.first;
+            
+            if(stops > k) continue;
+            for(auto i: adj[node])
+            {
+                int adn = i.first;
+                int edw = i.second;
+                
+                if(dis[adn] > cost + edw && stops <= k)
+                {
+                    dis[adn] = cost + edw;
+                    q.push({stops+1,{adn,dis[adn]}});
+                }
+            }
+        }
+        if(dis[dst] != INT_MAX) return dis[dst];
+        return -1;
+    }
