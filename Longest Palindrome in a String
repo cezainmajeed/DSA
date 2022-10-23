@@ -1,0 +1,88 @@
+  public:
+    string longestPalin (string S) {
+        // code here
+        string ans;
+        int o=0;
+        for(int i=0;i<S.size();i++){
+        
+                 int j=i;int k=S.size()-1;
+            int f=0;
+            int w=k;
+            w--;
+            while(j<=k){
+              if(j<k){
+                  if(S[j]!=S[k]){
+                    //   cout<<S[j]<<" "<<S[k]<<"\n";
+                      f=0;
+                      j=i;
+                      if(S[j]==S[k]){
+                          f=f+2;
+                         j++;
+                         k--;
+                      }
+                      else{
+                          k=w;
+                          w--;
+                      }
+                  }
+                  else {
+                      j++;
+                      k--;
+                      f=f+2;
+                  }
+                    w=max(w,f);
+              }
+            
+              else if(j==k){
+                  w=max(w,f);
+                  f=f+1;
+                  break;
+              }
+                if(j>k)
+                break;
+                
+            }
+            // cout<<S.substr(i,29)<<"\n";
+            
+            // else{
+            // int j=i;int k=S.size()-1;
+            // int f=0;
+            // while(j<=k){
+            //   if(j<k){
+            //       if(S[j]!=S[k]){
+            //           f=0;
+            //           j=i;
+            //           if(S[j]==S[k]){
+            //               f=f+2;
+            //               j++;
+            //               k--;
+            //           }
+            //           else{
+            //               k--;
+            //           }
+            //       }
+            //       else {
+            //           j++;
+            //           k--;
+            //           f=f+2;
+            //       }
+            //   }
+            //   else if(j==k){
+            //       f=f+1;
+            //       break;
+            //   }
+            //     if(j>k)
+            //     break;
+                
+            // }
+        //   cout<<f<<"\n";
+              if(f>o){
+                  o=f;
+                //   cout<<i<<"\n";
+                  ans=S.substr(i,f);
+              }
+            
+        }
+        return ans;
+    }
+};
