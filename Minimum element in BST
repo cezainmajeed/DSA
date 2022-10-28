@@ -1,0 +1,6 @@
+int solve(Node*root,int &o){
+    if(root==NULL)
+    return 0;   
+    solve(root->left,o);
+    o=min(o,root->data);
+}
