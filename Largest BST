@@ -1,0 +1,44 @@
+class info{
+        public:
+        int maxi=INT_MIN;
+        int mini=INT_MAX;
+        bool adi;
+        int size=0;
+    };
+class Solution{
+    public:
+    info adi(Node*root,int &o){
+        if(root==NULL){
+            info temp;
+            temp.maxi=INT_MIN;
+            temp.mini=INT_MAX;
+            temp.adi=1;
+            temp.size=0;
+            return temp;
+        }
+        info left=adi(root->left,o);
+        info right=adi(root->right,o);
+        info ans;
+        ans.maxi=max(root->data,right.maxi);
+        ans.mini=min(root->data,left.mini);
+        ans.size=1+left.size+right.size;
+        
+        if(left.adi&&right.adi&&root->data>left.maxi&&root->data<right.mini)
+        {
+            ans.adi=1;
+            o=max(o,ans.size);
+            
+        }
+        else
+        ans.adi=0;
+        return ans;
+    }
+    int largestBst(Node *root)
+    {
+    	//Your code here
+    	int o=0;
+    	adi(root,o);
+    	return o;
+    	
+    }
+};
