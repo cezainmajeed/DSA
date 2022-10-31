@@ -1,0 +1,61 @@
+// C++ program for the above approach
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function to check if it is possible
+// to modify the array such that
+// there is no common factor between
+// array elements except 1
+void checkCommonDivisor(int arr[],
+						int N, int X)
+{
+	// Stores GCD of the array
+	int G = 0;
+
+	// Calculate GCD of the array
+	for (int i = 0; i < N; i++) {
+		G = __gcd(G, arr[i]);
+	}
+
+	int copy_G = G;
+
+	for (int divisor = 2;
+		divisor <= X; divisor++) {
+
+		// If the current divisor
+		// is smaller than X
+		while (G % divisor == 0) {
+
+			// Divide GCD by the
+			// current divisor
+			G = G / divisor;
+		}
+	}
+
+	// If possible
+	if (G <= X) {
+		cout << "Yes\n";
+
+		// Print the modified array
+		for (int i = 0; i < N; i++)
+			cout << arr[i] / copy_G << " ";
+		cout << endl;
+	}
+
+	// Otherwise
+	else
+		cout << "No";
+}
+
+// Driver Code
+int main()
+{
+	// Given array
+	int arr[] = { 6, 15, 6 }, X = 6;
+
+	// Size of the array
+	int N = sizeof(arr) / sizeof(arr[0]);
+
+	checkCommonDivisor(arr, N, X);
+}
